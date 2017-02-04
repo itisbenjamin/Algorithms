@@ -63,9 +63,19 @@ public class DoubleNod<Item> {
 		}
 	}
 */
+	private Node loopItem(Item item) {
+		private Node current = first;
+		while (current.item !== item) {
+			current = current.next;
+			if (current == null) {
+				return -1;
+			}
+		}
+		return current;
+	}
 	
     public void addBeforeNode(Item item) {
-		private Node current = first;
+		private Node current = loopItem(item);
 		while (current.item !== item) {
 			current = current.next; 
 			if (current == null) {
@@ -79,11 +89,17 @@ public class DoubleNod<Item> {
 			current = new Node;
 			current.before = olditem.before;
 			current.next = olditem;
+			N++;
 		}
     }
     
     public void addAfterNode(Item item) {
-    
+    	private Node current = first;
+		while (current.item !== item) {
+			current = current.next;
+			if (current == null) {
+				break;
+			}
 	}
     
     public Item removeBegainning() {
