@@ -10,6 +10,7 @@ public class DoubleNod<Item> {
     private class Node {
         Item item;
         Node next;
+		Node before;
     }
     
     public boolean isEmpty() {
@@ -25,11 +26,12 @@ public class DoubleNod<Item> {
         first = new Node();
         first.item = item;
         first.next = oldfirst;
-        oldfirst.next = null;
+		first.before = null;
         if (isEmpty) {
-            last == oldfirst;
+            last == first;
         } else {
-            
+			oldfirst.before = first;
+		}
         N++;
     }
     
@@ -37,8 +39,9 @@ public class DoubleNod<Item> {
         Node oldlast = last;
         last = new Node();
         last.item = item;
+		last.before = oldlast;
         last.next = null;
-        if (isEmpty) {
+        if (isEmpty()) {
             first == last;
         } else {
             oldlast.next = last;
@@ -53,11 +56,20 @@ public class DoubleNod<Item> {
     public void addAfterNode(Item item) {
     }
     
-    public Item removeBegain() {
-    }
+    public Item removeBegainning() {
+    	Item item = first.item;
+		first = first.next;
+		if (isEmpty()) {
+			last = null;
+		}
+		N--;
+		return item;
+	}
     
     public Item removeEnd() {
-    }
+    	Item item = last.item;
+		last
+	}
     
     public void remove(Item item) {
     }
