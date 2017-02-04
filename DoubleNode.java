@@ -27,7 +27,7 @@ public class DoubleNod<Item> {
         first.item = item;
         first.next = oldfirst;
 		first.before = null;
-        if (isEmpty) {
+        if (isEmpty()) {
             last == first;
         } else {
 			oldfirst.before = first;
@@ -48,13 +48,43 @@ public class DoubleNod<Item> {
         }
         N++;
     }
-    
+ 
+/*
+	private class Iterator<Item> {
+		private Node current = first;
+		public boolean hasNext() {
+			return current.next != null;
+		}
+		public void remove() {	}
+		public Item next() {
+			Item item = current.item;
+			current = current.next;
+			return item;
+		}
+	}
+*/
+	
     public void addBeforeNode(Item item) {
-        
+		private Node current = first;
+		while (current.item !== item) {
+			current = current.next; 
+			if (current == null) {
+				break;
+			}
+		}
+		if (current == null) {
+			System.out.println("There is no item named " + item);
+		} else {
+			Node olditem = current;
+			current = new Node;
+			current.before = olditem.before;
+			current.next = olditem;
+		}
     }
     
     public void addAfterNode(Item item) {
-    }
+    
+	}
     
     public Item removeBegainning() {
     	Item item = first.item;
@@ -68,7 +98,12 @@ public class DoubleNod<Item> {
     
     public Item removeEnd() {
     	Item item = last.item;
-		last
+		last = last.before;
+		if (isEmpty()) {
+			pass;
+		}
+		N--;
+		return item;
 	}
     
     public void remove(Item item) {
