@@ -20,9 +20,21 @@ public class DoubleNod<Item> {
     public int size() {
         return N;
     }
+	
+	private Node loopItem(Item item) {
+		private Node current = first;
+		while (current.item !== item) {
+			current = current.next;
+			if (current == null) {
+				System.out.println("There is no item named " + item);
+				return null;
+			}
+		}
+		return current;
+	}
     
     public void addBegainning(Item item) {
-        Node oldfirst = first;
+        private Node oldfirst = first;
         first = new Node();
         first.item = item;
         first.next = oldfirst;
@@ -36,7 +48,7 @@ public class DoubleNod<Item> {
     }
     
     public void addEnd(Item item) {
-        Node oldlast = last;
+        private Node oldlast = last;
         last = new Node();
         last.item = item;
 		last.before = oldlast;
@@ -63,30 +75,21 @@ public class DoubleNod<Item> {
 		}
 	}
 */
-	private Node loopItem(Item item) {
-		private Node current = first;
-		while (current.item !== item) {
-			current = current.next;
-			if (current == null) {
-				return -1;
-			}
-		}
-		return current;
-	}
 	
     public void addBeforeNode(Item item) {
 		private Node current = loopItem(item);
+		/*
 		while (current.item !== item) {
 			current = current.next; 
 			if (current == null) {
 				break;
 			}
 		}
-		if (current == null) {
-			System.out.println("There is no item named " + item);
-		} else {
+		*/
+		if (current !== null) {
 			Node olditem = current;
 			current = new Node;
+			current.item = item;
 			current.before = olditem.before;
 			current.next = olditem;
 			N++;
@@ -94,12 +97,15 @@ public class DoubleNod<Item> {
     }
     
     public void addAfterNode(Item item) {
-    	private Node current = first;
-		while (current.item !== item) {
-			current = current.next;
-			if (current == null) {
-				break;
-			}
+    	private Node current = loopItem(item);
+		if (current !== null) {
+			Node olditem = current;
+			current = new Node;
+			current.item = item;
+			current.before = olditem;
+			current.next = oldite.next;
+			N++;
+		}
 	}
     
     public Item removeBegainning() {
@@ -123,10 +129,28 @@ public class DoubleNod<Item> {
 	}
     
     public void remove(Item item) {
-    }
+    	private Node current = loopItem(item);
+		private Node currentBefore = current.before;
+		private Node currentNext = current.next;
+		currentBefore.next = currentNext;
+		currentNext.before = currentBefore;
+		current = null;
+		N--;
+	}
     
     public void moveToFront(Item item) {
-    }
+    	private Node current = loopItem(item);
+		private Node currentBefore = current.before;
+		private Node currentNext = current.next;
+		currentBefore.next = currentNext;
+		currentNext.before = currentBefore;
+		private Node oldfirst = first;
+		first = current;
+		oldfirst = null;
+		current.before = null;
+		current.next = first;
+		first.before = current;
+	}
     
     public void moveToEnd(Item item) {
     }
