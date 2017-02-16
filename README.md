@@ -1,8 +1,8 @@
 # Algorithms
 
  - Stack and Queue
-	- [Stack](Algorithms/Stacks/Queue.java)
-	- [Queue](Algorithms/Stacks/Queue.java)
-    - [Evaluator with Stack and Queue](Algorithms/Stacks/ArithmeticExpressionEvaluator.java)
+	- [Stack](https://github.com/itisbenjamin/Algorithms/blob/master/Stacks/Stack.java)
+	- [Queue](https://github.com/itisbenjamin/Algorithms/blob/master/Stacks/Queue.java)
+    - [Evaluator with Stack and Queue](https://github.com/itisbenjamin/Algorithms/blob/master/Stacks/ArithmeticExpressionEvaluator.java)
 
 - Linked List
