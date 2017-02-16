@@ -31,13 +31,7 @@ public class DoubleNode<Item> implements Iterable<Item> {
 		}
 		return current;
 	}
-/*
-	private void printResult() {
-		for (Item item : DoubleNode) {
-			System.out.print(item + " ");
-		}
-	}
-  */  
+
     public void addBegainning(Item item) {
         Node oldfirst = first;
         first = new Node();
@@ -50,7 +44,6 @@ public class DoubleNode<Item> implements Iterable<Item> {
 			oldfirst.before = first;
 		}
         N++;
-	//	printResult();
     }
     
     public void addEnd(Item item) {
@@ -64,78 +57,73 @@ public class DoubleNode<Item> implements Iterable<Item> {
         } else {
             oldlast.next = last;
         }
+		oldlast = null;
         N++;
-	//	printResult();
     }
 	
     public void addBeforeNode(Item item, Item add) {
 		Node current = loopItem(item);
 		if (current != null) {
-			Node olditem = new Node();
-			olditem = current;
+			Node olditem = current;
 			current = new Node();
 			current.item = add;
-			current.before = olditem.before;
+			Node oldBefore = olditem.before;
+			oldBefore.next = current;
+			olditem.before = current;
+			current.before = oldBefore;
 			current.next = olditem;
 			N++;
-		//	printResult();
 		}
     }
     
     public void addAfterNode(Item item, Item add) {
     	Node current = loopItem(item);
 		if (current != null) {
-			Node olditem = new Node();
-			olditem = current;
+			Node olditem = current;
 			current = new Node();
 			current.item = add;
-			current.next = olditem.next;
+			Node oldAfter = olditem.next;
+			oldAfter.before = current;
+			olditem.next = current;
+			current.next = oldAfter;
 			current.before = olditem;
 			N++;
-		//	printResult();
 		}
 	}
     
     public void removeBegainning() {
     	Item item = first.item;
 		first = first.next;
+		first.before = null;
 		if (isEmpty()) {
 			last = null;
 		}
 		N--;
-	//	printResult();
-		//return item;
 	}
     
     public void removeEnd() {
-		//if (isEmpty()) {
-			//return null;
-		//}
     	Item item = last.item;
 		last = last.before;
+		last.next = null;
+		if (isEmpty()) {
+			first = null;
+		}
 		N--;
-	//	printResult();
-		//return item;
 	}
 
 	private void linkNodes(Item item) {
-		Node current = new Node();
-		current = loopItem(item);
-		Node currentBefore = new Node();
-		currentBefore = current.before;
-		Node currentNext = new Node();
-		currentNext = current.next;
-		currentBefore.next = currentNext;
-		currentNext.before = currentBefore;
+		Node pointer = new Node();
+		pointer = loopItem(item);
+		Node pointerBefore = pointer.before;
+		Node pointerNext = pointer.next;
+		pointerBefore.next = pointerNext;
+		pointerNext.before = pointerBefore;
+		pointer = null;
 	}
     
     public void remove(Item item) {
-		Node current = new Node();
-		current = loopItem(item);
 		linkNodes(item);
-		current = null;
 		N--;
-	//	printResult();
 	}
     
     public void moveToFront(Item item) {
@@ -146,8 +134,9 @@ public class DoubleNode<Item> implements Iterable<Item> {
 		first = current;
 		first.before = null;
 		first.next = oldfirst;
+		oldfirst.before = first;
 		oldfirst = null;
-//		printResult();
+		current = null;
 	}
     
     public void moveToEnd(Item item) {
@@ -158,8 +147,9 @@ public class DoubleNode<Item> implements Iterable<Item> {
 		last = current;
 		last.next = null;
 		last.before = oldend;
+		oldend.next = last;
 		oldend = null;
-//		printResult();
+		current = null;
 	}	
 
 	public Iterator<Item> iterator() {
