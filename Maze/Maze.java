@@ -43,20 +43,35 @@ public class Maze {
 		return count;
 	}
 
-/*	public static void breakWall() {
-		int p = StdRandom.uniform(N * N);
-		if (p == 0) {
-			}}*/
-
 	public static void main(String[] args) {
 		int N = Integer.parseInt(args[0]);
 		Maze m = new Maze(N);
 		while (true) {
-			if (m.connected(0, N - 1)) {
+			if (m.connected(0, N * N - 1)) {
 				break;
 			}
 			int p = StdRandom.uniform(N * N);
-			int q = StdRandom.uniform(N * N);
+			int q = -1;
+			int up = p - N;
+			int down = p + N;
+			int left = p - 1;
+			int right = p + 1;
+			if (StdRandom.bernoulli(0.5)) {
+				if (StdRandom.bernoulli(0.5) && up > -1) {
+					q = up;
+				} else if (down < 25) {
+					q = down;
+				}
+			} else {
+				if (StdRandom.bernoulli(0.5) && (left + 1) % N != 0) {
+					q = left;
+				} else if (right % N != 0) {
+					q = right;
+				}
+			}
+			if (q == -1) {
+				continue;
+			}
 			if (m.connected(p, q)) {
 				continue;
 			}
