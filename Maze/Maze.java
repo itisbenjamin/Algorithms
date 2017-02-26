@@ -32,7 +32,7 @@ public class Maze {
 		if (StdRandom.bernoulli(0.5)) {
 			if (StdRandom.bernoulli(0.5) && up > -1) {
 				q = up;
-			} else if (down < 25) {
+			} else if (down < N * N) {
 				q = down;
 			}
 		} else {
@@ -60,25 +60,54 @@ public class Maze {
 		return count;
 	}
 
-	public static void draw(int[] draw) {
+	public static void draw(int[][] draw, int N) {
 		for (int i = 0; i < N; i++) {
 			System.out.print("+---");
 		}
-			System.out.print("+\n");
-		System.out.print("|   ");
-		for (int i = 0; i < N; i++) {
-			if (m.connected(i, draw(i))) {
-				System.out.print(" ");
-			} else {
-				System.out.print("|");
+		System.out.print("+\n");
+		int k = 0;
+		//int j = 0;
+		while (true) {
+			if (k == N * 2 - 1) {
+				break;
 			}
+			if (k % 2 == 0) {
+		 		System.out.print("|   ");
+				for (int j = N * k / 2; j < N * (k / 2 + 1) - 1; j++) {
+ 					if (draw[j][j + 1] != -1) {
+						System.out.print("    ");
+					} else {
+						System.out.print("|   ");
+					}
+	 			}
+				System.out.print("|\n");
+			} else {
+ 				for (int j = N * (k - 1) / 2; j < N * (k + 1) / 2; j++) {
+	   				if (draw[j][j + N] != -1) {
+						System.out.print("+   ");
+					} else {
+						System.out.print("+---");
+					}
+				}
+				System.out.print("+\n");
+			}
+			k++;
 		}
+		for (int i = 0; i < N; i++) {
+			System.out.print("+---");
 		}
+		System.out.print("+\n");
+	}
 
 	public static void main(String[] args) {
 		int N = Integer.parseInt(args[0]);
-		int[] draw = new int[N * N];
+		int[][] draw = new int[N * N][N * N];
 		Maze m = new Maze(N);
+		for (int i = 0; i < N * N; i++) {
+			for (int j = 0; j < N * N; j++){
+				draw[i][j] = -1;
+			}
+		}
 		while (true) {
 			if (m.connected(0, N * N - 1)) {
 				break;
@@ -92,9 +121,14 @@ public class Maze {
 				continue;
 			}
 			m.union(p, q);
-			draw[p] = q;
-			System.out.println(p + " " + q);
+			if (p > q) {
+				draw[q][p] = 1;
+			} else {
+				draw[p][q] = 1;
+			}
+			//System.out.println(p + " " + q);
 		}
-		System.out.println(m.count() + " components. ");
+		//System.out.println(m.count() + " components. ");
+		draw(draw, N);
 	}
 }
