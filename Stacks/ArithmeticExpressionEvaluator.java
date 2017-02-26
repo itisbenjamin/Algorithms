@@ -1,5 +1,3 @@
-// package Stacks;
-
 public class ArithmeticExpressionEvaluator {
 	
 	private static double EvaluatePostfix(Queue<String> output) {
