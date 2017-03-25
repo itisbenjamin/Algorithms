@@ -25,7 +25,7 @@ public class DoubleNode<Item> implements Iterable<Item> {
 		while (current.item != item) {
 			current = current.next;
 			if (current == null) {
-				System.out.println("There is no item named " + item);
+				Sys tem.out.println("There is no item named " + item);
 				return null;
 			}
 		}
