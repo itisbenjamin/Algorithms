@@ -1,10 +1,10 @@
 public class MergeSort {
 
-	/*private class Node {
+	private class Node {
 		String item;
 		Node next;
 		Node before;
-	}*/
+	}
 
 	public static Node findEnd(DoubleNode<String> list, Node start) {
 		Node end = start;
@@ -22,8 +22,11 @@ public class MergeSort {
 	public void sort(DoubleNode<String> list) {
 		Node start = list.first;
 		while (true) {
+			//if (isSorted) {
+			//	break;
+			//}
 			if (start == null){
-				break;
+				start = list.first;
 			}
 			Node mid = findEnd(list, start);
 			Node end = findEnd(list, mid.next);

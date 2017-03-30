@@ -2,9 +2,14 @@ public class Heapsort {
 
 	public Heapsort() {	}
 
-	public static void sort(Comparable[] pq) {
+	public static void sort(int[] pq) {
 		int n = pq.length;
-		for (int k = (n + 1) / 3; k >= 1; k--) {
+		//Comparable[] pq = new Comparable[n];
+
+		//for (int i = 0; i < n; i++) {
+		//	pq[i] = input[i];
+		//}
+		for (int k = n / 2; k >= 1; k--) {
 			sink(pq, k, n);
 		}
 		while (n > 1) {
@@ -13,50 +18,42 @@ public class Heapsort {
 		}
 	}
 
-	private static void sink(Comparable[] pq, int k, int n) {
-		while (3 * k <= n) {
-			int j = 3 * k;
-			if (j < n && less(pq, j, j + 1)) {
-	 			if (less(pq, j - 1, j + 1)) {
-					j = j + 1;
-				} else {
-					j = j - 1;
-				}
-			} else if (j <= n && less(pq, j, j - 1)) {
-				j = j - 1;
-			} else if (j == n + 1){
-				j = n;
-			}
+	private static void sink(int[] pq, int k, int n) {
+		while (2 * k <= n) {
+			int j = 2 * k;
+			if (j < n && less(pq, j, j + 1)) j++;
 			if (!less(pq, k, j)) break;
-			//System.out.println(j);
 			exch(pq, k, j);
-			//show(pq);
 			k = j;
 		}
 	}
 
-	private static boolean less(Comparable[] pq, int i, int j) {
-		return pq[i - 1].compareTo(pq[j - 1]) < 0;
+	private static boolean less(int[] pq, int i, int j) {
+		return pq[i - 1] < pq[j - 1];
 	}
 
-	private static void exch(Object[] pq, int i, int j) {
-		Object swap = pq[i - 1];
+	private static void exch(int[] pq, int i, int j) {
+		int swap = pq[i - 1];
 		pq[i - 1] = pq[j - 1];
 		pq[j - 1] = swap;
 	}
 
-	private static void show(Comparable[] a) {
-		for (int i = 0; i < a.length; i++) {
-			System.out.print(a[i] +  " ");
+	private static void show(int[] input) {
+		for (int i = 0; i < input.length; i++) {
+			System.out.print(input[i] +  " ");
 		}
 		System.out.println(" ");
 	}
 
 	/*public static void main(String[] args) {
-		Integer[] a = new Integer[100];
-		for (int i = 0; i < 100; i++) {
-			a[i] = StdIn.readInt();
-		}
+		int[] a = StdIn.readAllInts();
+		//for (int i = 0; i < a.length; i++) {
+		//	a[i] = StdIn.readInt();
+		//}
+		//Comparable[] b = new Comparable[5];
+		//for (int i = 0; i < a.length; i++) {
+		//	b[i] = a[i];
+		//}
 		Heapsort.sort(a);
 		show(a);
 	}*/

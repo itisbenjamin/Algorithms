@@ -3,7 +3,7 @@ public class QuicksortPivot {
 	private QuicksortPivot() {	}
 
 	public static void sort(Comparable[] a) {
-		//StdRandom.shuffle(a);
+		StdRandom.shuffle(a);
 		sort(a, 0, a.length - 1);
 		assert isSorted(a);
 	}
@@ -16,7 +16,7 @@ public class QuicksortPivot {
 		assert isSorted(a, lo, hi);
 	}
 
-	private static int getMedian(Comparable[] a, int left, int center, int right) {
+	private static int getPivot(Comparable[] a, int left, int center, int right) {
 		return (less(a[left], a[center]) ? (less(a[center], a[right]) ? center : less(a[left], a[right]) ? right : left) : (less(a[right], a[center]) ? center : less(a[right], a[left]) ? right : left));
 	}
 
@@ -24,10 +24,22 @@ public class QuicksortPivot {
 		int num = hi - lo + 1;
 		int i = lo;
 		int j = hi + 1;
-		int k = getMedian(a, lo, lo + num / 2, hi);
-		Comparable v = a[k];
+		int k = getPivot(a, lo, lo + num / 2, hi);
+		if (k != lo) {
+			exch(a, k, lo);
+		}
+		Comparable v = a[lo];
 		while (true) {
-			while (less(a[++i], v)) {
+			while (less(a[++i], v)) 
+				if (i == hi) break;
+
+			while (less(v, a[--j]))
+				if (j == lo) break;
+
+			if (i >= j) break;
+
+			exch(a, i, j);
+			/*while (less(a[++i], v)) {
 				if (i == hi) break;
 			}
 			while (less(v, a[--j])) {
@@ -35,20 +47,21 @@ public class QuicksortPivot {
 			}
 			if (i >= j) break;
 		
-			exch(a, i, j);
-		}
+			exch(a, i, j);*/
+		//}
 	
-		if (eq(v, a[lo])) {
+		/*if (eq(v, a[lo])) {
 			exch(a, k, j);
 			return j;
 		} else if (eq(v, a[hi])) {
 			exch(a, k, i);
-			return i;
-		} //else if (v.compareTo(a[k + 1]) > 0){
+			return i;*/
+	//	} //else if (v.compareTo(a[k + 1]) > 0){
 		//	exch(a, k, k + 1);
-	//	}
+		}
+		exch(a, lo, j);
 	
-		return k;
+		return j;
 	}
 
 	private static boolean less(Comparable v, Comparable w) {

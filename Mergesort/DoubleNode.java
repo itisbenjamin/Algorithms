@@ -2,11 +2,11 @@ import java.util.Iterator;
 
 public class DoubleNode<Item> implements Iterable<Item> {
     
-    private Node first;
-    private Node last;
+    public Node first;
+    public Node last;
     private int N;
     
-    private class Node {
+    public class Node {
         Item item; 
         Node next;
 		Node before;
