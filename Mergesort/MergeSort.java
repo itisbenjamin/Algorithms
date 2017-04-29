@@ -1,6 +1,3 @@
-import java.util.Iterator;
-import java.util.Comparator;
-
 public class MergeSort {
 	
 	private Node first;
@@ -18,29 +15,30 @@ public class MergeSort {
 		n = 0;
 	}
 
-	public void sort(/*MergeSort list*/) {
-		Node start = first;//list.first;
+	public void sort() {
+		Node start = first;
 		while (true) {
-			if (isSorted(first, last)) {// (list, first, last)) {
+			if (isSorted(first, last)) {
 				break;
 			}
 			if (start == null) {
-				start = list.first;
+				start = first;
 			}
-			Node mid = findEnd(list, start);
-			Node end = findEnd(list, mid.next);
-			merge(list, start, mid, end);
+			Node mid = findEnd(start);
+			Node end = findEnd(mid.next);
+			merge(start, mid, end);
 			start = end.next;
 		}
 	}
 
-	public void merge(MergeSort list, Node start, Node mid, Node end) {
+	public void merge(Node start, Node mid, Node end) {
 		Node start2 = mid.next;
 		while (true) {
 			Node startNext = start.next;
 			Node start2Next = start2.next;
+			Node midNext = mid.next;
 
-			if (start == mid.next) {
+			if (start == midNext || startNext == null || start2Next == null) {
 				break;
 			}
 			if (startNext.item < start2.item && start != mid) {
@@ -68,12 +66,7 @@ public class MergeSort {
 		}
 	}
 
-	/*public boolean less(Comparable v, Comparable w) {
-		return comparator.compare(v, w) < 0;
-		//return v.compareTo(w) < 0;
-	}*/
-
-	public boolean isSorted(MergeSort list, Node start, Node end) {
+	public boolean isSorted(Node start, Node end) {
 		while (true) {
 			Node next = start.next;
 			if (start.item > next.item) {
@@ -86,25 +79,13 @@ public class MergeSort {
 		return true;
 	} 
 
-	/*public boolean bigger(Comparable v, Comparable w) {
-		return v.compareTo(w) > 0;
-	}*/
-
-/*	private static Node findItem(Item item, LinkedList list) {
-		Node current = null;
-		for (Item i : list) {
-			if (i.item == item) {
-				current = i;
-			}
-		}
-		return current;
-	}*/
-
-	public Node findEnd(MergeSort list, Node start) {
+	public Node findEnd(Node start) {
 		Node end = start;
 		while (true) {
 			Node next = end.next;
-			if (end.item <= next.item) {
+			if (next == null) {
+				break;
+			} else if (end.item <= next.item) {
 				end = end.next;
 			} else {
 				break;
@@ -112,10 +93,6 @@ public class MergeSort {
 		}
 		return end;
 	}
-
-	/*public boolean equal(Comparable v, Comparable w) {
-		return v.compareTo(w) == 0;
-	}*/
 
 	public void add(int item) {
 		Node oldlast = last;
@@ -142,25 +119,8 @@ public class MergeSort {
 		return n;
 	}
 
-	/*public Iterator<Comparable> iterator() {
-		return new ListIterator();
-	}
-
-	private class ListIterator implements Iterator<Comparable> {
-		private Node current = first;
-		public boolean hasNext() {
-			return current != null;
-		}
-		public void remove() {		}
-		public Comparable next() {
-			Comparable item = current.item;
-			current = current.next;
-			return item;
-		}
-	}*/
-
-	public void show(MergeSort list) {
-		Node i = list.first;
+	public void show() {
+		Node i = first;
 		while (true) {
 			if (i == null) {
 				break;
@@ -169,10 +129,6 @@ public class MergeSort {
 			i = i.next;
 		}
 		System.out.println(" ");
-		/*for (Object i : list) {
-			System.out.print(i + " ");
-		}
-		System.out.println(" ");*/
 	}
 
 	public static void main(String[] args) {
@@ -181,7 +137,18 @@ public class MergeSort {
 			int i = StdIn.readInt();
 			list.add(i);
 		}
-		MergeSort.sort(list);
-		show(list);
+		list.show();
+		list.sort();
+		list.show();
 	}
 }
+
+/*
+ * $ more input.txt
+ * 3 8 19 7 11 12 20 89  
+ *
+ * $ javac MergeSort.java
+ * $ java MergeSort < input.txt 
+ * 3 8 19 7 11 12 20 89  
+ * 3 7 8 11 12 19 20 89 
+ */

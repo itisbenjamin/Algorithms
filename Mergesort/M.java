@@ -1,7 +1,7 @@
 import java.util.Iterator;
 import java.util.Comparator;
 
-public class MergeSortT {
+public class MergeSort {
 	
 	private Node first;
 	private Node last;
@@ -12,9 +12,9 @@ public class MergeSortT {
 		private Node next;
 	}
 
-	public MergeSortT() {
-		//first = null;
-		//last = null;
+	public MergeSort() {
+		first = null;
+		last = null;
 		n = 0;
 	}
 
@@ -25,23 +25,22 @@ public class MergeSortT {
 				break;
 			}
 			if (start == null) {
-				start = first;
+				start = list.first;
 			}
-			Node mid = findEnd(start);
-			Node end = findEnd(mid.next);
-			merge(start, mid, end);
+			Node mid = findEnd(list, start);
+			Node end = findEnd(list, mid.next);
+			merge(list, start, mid, end);
 			start = end.next;
 		}
 	}
 
-	public void merge(Node start, Node mid, Node end) {
+	public void merge(MergeSort list, Node start, Node mid, Node end) {
 		Node start2 = mid.next;
 		while (true) {
 			Node startNext = start.next;
 			Node start2Next = start2.next;
-			Node midNext = mid.next;
 
-			if (start == midNext || startNext == null || start2Next == null) {
+			if (start == mid.next) {
 				break;
 			}
 			if (startNext.item < start2.item && start != mid) {
@@ -74,7 +73,7 @@ public class MergeSortT {
 		//return v.compareTo(w) < 0;
 	}*/
 
-	public boolean isSorted(Node start, Node end) {
+	public boolean isSorted(MergeSort list, Node start, Node end) {
 		while (true) {
 			Node next = start.next;
 			if (start.item > next.item) {
@@ -101,13 +100,11 @@ public class MergeSortT {
 		return current;
 	}*/
 
-	public Node findEnd(Node start) {
+	public Node findEnd(MergeSort list, Node start) {
 		Node end = start;
 		while (true) {
 			Node next = end.next;
-			if (next == null) {
-				break;
-			} else if (end.item <= next.item) {
+			if (end.item <= next.item) {
 				end = end.next;
 			} else {
 				break;
@@ -162,8 +159,8 @@ public class MergeSortT {
 		}
 	}*/
 
-	public void show() {
-		Node i = first;
+	public void show(MergeSort list) {
+		Node i = list.first;
 		while (true) {
 			if (i == null) {
 				break;
@@ -179,13 +176,12 @@ public class MergeSortT {
 	}
 
 	public static void main(String[] args) {
-		MergeSortT list = new MergeSortT();
+		MergeSort list = new MergeSort();
 		while (!StdIn.isEmpty()) {
 			int i = StdIn.readInt();
 			list.add(i);
 		}
-		list.show();
-		list.sort();
-		list.show();
+		MergeSort.sort(list);
+		show(list);
 	}
 }

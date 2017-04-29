@@ -4,11 +4,6 @@ public class Heapsort {
 
 	public static void sort(int[] pq) {
 		int n = pq.length;
-		//Comparable[] pq = new Comparable[n];
-
-		//for (int i = 0; i < n; i++) {
-		//	pq[i] = input[i];
-		//}
 		for (int k = n / 2; k >= 1; k--) {
 			sink(pq, k, n);
 		}
@@ -44,17 +39,4 @@ public class Heapsort {
 		}
 		System.out.println(" ");
 	}
-
-	/*public static void main(String[] args) {
-		int[] a = StdIn.readAllInts();
-		//for (int i = 0; i < a.length; i++) {
-		//	a[i] = StdIn.readInt();
-		//}
-		//Comparable[] b = new Comparable[5];
-		//for (int i = 0; i < a.length; i++) {
-		//	b[i] = a[i];
-		//}
-		Heapsort.sort(a);
-		show(a);
-	}*/
 }

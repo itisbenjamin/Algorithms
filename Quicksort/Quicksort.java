@@ -72,3 +72,12 @@ public class Quicksort {
 		assert isSorted(a);
 	}
 }
+
+/*
+ * $ more input.txt 
+ * S O R T E X A M P L E
+ * 
+ * $ javac Quicksort.java
+ * $ java Quicksort < input.txt 
+ * A E E L M O P R S T X  
+ */

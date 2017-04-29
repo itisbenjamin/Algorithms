@@ -28,9 +28,7 @@ public class Heapsort {
 				j = n;
 			}
 			if (!less(pq, k, j)) break;
-			//System.out.println(j);
 			exch(pq, k, j);
-			//show(pq);
 			k = j;
 		}
 	}
@@ -58,3 +56,12 @@ public class Heapsort {
 		show(a);
 	}
 }
+
+/*
+ * $ more input.txt 
+ * A C D E B J K J A O P R T S X Z O O P V U M N I I L V S O P V S W C X V F W R S L K P I E J U K W M L S A X Z C D E R T T Y B N J F E W L M Q S D P K I W E C V S A Q Z C H P O W E R U I D M K F H G W
+ * 
+ * $ javac Heapsort.java
+ * $ java Heapsort < input.txt 
+ * A A A A B B C C C C C D D D D E E E E E E F F F G H H I I I I I J J J J K K K K K L L L L M M M M N N O O O O O P P P P P P Q Q R R R R S S S S S S S T T T U U U V V V V V W W W W W W W X X X Y Z Z Z  
+ */

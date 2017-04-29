@@ -39,25 +39,6 @@ public class QuicksortPivot {
 			if (i >= j) break;
 
 			exch(a, i, j);
-			/*while (less(a[++i], v)) {
-				if (i == hi) break;
-			}
-			while (less(v, a[--j])) {
-				if (j == lo) break;
-			}
-			if (i >= j) break;
-		
-			exch(a, i, j);*/
-		//}
-	
-		/*if (eq(v, a[lo])) {
-			exch(a, k, j);
-			return j;
-		} else if (eq(v, a[hi])) {
-			exch(a, k, i);
-			return i;*/
-	//	} //else if (v.compareTo(a[k + 1]) > 0){
-		//	exch(a, k, k + 1);
 		}
 		exch(a, lo, j);
 	
@@ -103,3 +84,12 @@ public class QuicksortPivot {
 		assert isSorted(a);
 	}
 }
+
+/*
+ * $ more input.txt
+ * S O R T E X A M P L E
+ *
+ * $ javac QuicksortPivot.java
+ * $ java QuicksortPivot < input.txt 
+ * A E E L M O P R S T X 
+ */
